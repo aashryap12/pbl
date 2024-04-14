@@ -96,7 +96,7 @@ function _addFriend(address me, address friend_key , string memory name)internal
         require(checkUserExists(friend_key),"User is not registered");
         require(checkAlreadyFriends(msg.sender,friend_key), "You are not friend with the given user");
         bytes32 chatCode = _getChatCode(msg.sender,friend_key);
-        //message memory newMsg = message(msg.sender, block.timestamp, _msg);
+        message memory newMsg = message(msg.sender, block.timestamp, _msg);
         allMessages[chatCode].push(newMsg);
     }
 
