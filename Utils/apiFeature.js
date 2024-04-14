@@ -1,4 +1,4 @@
-import {ethers} from "ethers";
+import { ethers } from "ethers";
 
 import Web3Modal from "web3modal";
 
@@ -18,7 +18,7 @@ export const ChechIfWalletConnected= async() => {
     }
 };
 
-export const ConnectWallet= async() => {
+export const connectWallet= async() => {
     try{
         if(!window.ethereum) return console.log("Install MetaMask");
         const accounts = await  window.ethereum.request({
@@ -28,15 +28,16 @@ export const ConnectWallet= async() => {
         const firstAccount= accounts[0];
         return firstAccount;
     }catch(error){
-    };
+    }
 
 };
 
-const fetchContract = (signerOrProvider) => new ethers.Contract(ChatAppABI, ChatAppAddress, signerOrProvider);
+const fetchContract = (signerOrProvider) =>
+ new ethers.Contract( ChatAppAddress,ChatAppABI, signerOrProvider);
 
-export const connectingwithContract = async() => {
+export const connectingWithContract = async() => {
     try{
-        const web3modal = new web3modal();
+        const web3modal = new Web3Modal();
         const connection = await web3modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();

@@ -70,12 +70,12 @@ contract ChatApp{
         if (userList[pubkey1].friendList[i].pubkey == pubkey2 )return true;
     }
     return false;
-}
-//internal function to add a friend
-function _addFriend(address me, address friend_key , string memory name)internal{
-    friend memory newFriend = friend(friend_key,name);
-    userList[me].friendList.push(newFriend);
-}
+    }
+    //internal function to add a friend
+    function _addFriend(address me, address friend_key , string memory name)internal{
+        friend memory newFriend = friend(friend_key,name);
+        userList[me].friendList.push(newFriend);
+    }
     //get my friend
     function getMyFriendList() external view returns(friend[] memory){
         return userList[msg.sender].friendList;
@@ -91,12 +91,12 @@ function _addFriend(address me, address friend_key , string memory name)internal
     }
 
     //send message
-    function sendMessage(address friend_key, string calldata _msg) external{
+    function sendMessage(address friend_key, string memory _msg) external{
         require(checkUserExists(msg.sender),"Create an account for");
         require(checkUserExists(friend_key),"User is not registered");
         require(checkAlreadyFriends(msg.sender,friend_key), "You are not friend with the given user");
         bytes32 chatCode = _getChatCode(msg.sender,friend_key);
-        message memory newMsg = message(msg.sender, block.timestamp, _msg);
+        message memory newMsg = message({sender: msg.sender, timestamp: block.timestamp,msg: _msg});
         allMessages[chatCode].push(newMsg);
     }
 

@@ -1,8 +1,15 @@
-import "@/styles/globals.css";
+import "../styles/globals.css";
+
+//internal import
+import {ChatAppProvider} from "../Context/ChatAppContext";
+import {NavBar} from "../Components/index";
 
 const MyApp = ({ Component, pageProps }) => (
   <div>
-    <Component {...pageProps} />
+    <ChatAppProvider>
+      <NavBar />
+      <Component {...pageProps} />
+    </ChatAppProvider>
   </div>
 );
 
